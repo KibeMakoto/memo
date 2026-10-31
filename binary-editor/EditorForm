@@ -1,0 +1,81 @@
+//using System.IO;
+
+        private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.Button btn_read;
+        private System.Windows.Forms.Button btn_save;
+
+        public EditorForm()
+        {
+            InitializeComponent();
+            this.ClientSize = new System.Drawing.Size(800, 450);
+
+            this.textBox = new System.Windows.Forms.TextBox();
+            this.btn_read = new System.Windows.Forms.Button();
+            this.btn_save = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+
+            this.textBox.Name = "textBox";
+            this.textBox.Multiline = true;
+            this.textBox.MaxLength = 0;
+            this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox.Location = new System.Drawing.Point(10, 30);
+            this.textBox.Size = new System.Drawing.Size(780, 400);
+            this.textBox.AllowDrop = true;
+            this.textBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox_DragDrop);
+            this.textBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBox_DragEnter);
+            this.Controls.Add(this.textBox);
+
+            this.btn_read.Name = "btn_read";
+            this.btn_read.Text = "file";
+            this.btn_read.Location = new System.Drawing.Point(10, 10);
+            this.btn_read.Size = new System.Drawing.Size(85, 20);
+            this.btn_read.Click += new System.EventHandler(this.btn_read_Click);
+            this.Controls.Add(this.btn_read);
+
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Text = "save";
+            this.btn_save.Location = new System.Drawing.Point(100, 10);
+            this.btn_save.Size = new System.Drawing.Size(110, 20);
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            this.Controls.Add(this.btn_save);
+
+            this.ResumeLayout(false);
+            this.PerformLayout();
+        }
+        private void textBox_DragEnter(object sender, DragEventArgs e) { if (e.Data.GetDataPresent(DataFormats.FileDrop)) { e.Effect = DragDropEffects.Copy; } }
+        private void textBox_DragDrop(object sender, DragEventArgs e)
+        {
+            String[] files = (String[])(e.Data.GetData(DataFormats.FileDrop, true));
+            String file_name = files[0];
+            readBin(files[0], textBox);
+        }
+        private void btn_read_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog sfd = new OpenFileDialog();
+            sfd.Filter = "All files(*.*)|*.*";
+            if (sfd.ShowDialog() == DialogResult.OK) { readBin(sfd.FileName, textBox); }
+        }
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "All files(*.*)|*.*";
+            if (sfd.ShowDialog() == DialogResult.OK){ writeBin(sfd.FileName, textBox); }
+        }
+
+        void readBin(String filename, System.Windows.Forms.TextBox tb)
+        {
+            String st; st = "";
+            int b;
+            FileStream infs = new FileStream(filename, FileMode.Open);
+            while ((b = infs.ReadByte()) != -1) { st += b.ToString("X2"); }
+            tb.Text = st;
+            infs.Close();
+        }
+        void writeBin(String filename, System.Windows.Forms.TextBox tb) {
+            FileStream outfs = new FileStream(filename, FileMode.Create);
+            for (int i = 0; i < textBox.Text.Length / 2; i++)
+            { outfs.WriteByte((byte)Convert.ToInt32(tb.Text.Substring(2 * i, 2), 16)); }
+            outfs.Close();
+        }
