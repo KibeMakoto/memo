@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace MuseScore入力補助
 {
@@ -122,10 +122,10 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
 
         private void lbl_ctrlL_MouseDown(object sender, MouseEventArgs e) { SendKeys.Send("^l"); }//音符を選択してCtrl+Lで歌詞入力
 
-        private void lbl反映_Click(object sender, EventArgs e)
+        private async void lbl反映_Click(object sender, EventArgs e)
         {
             txt.Text = Clipboard.GetText();
-            Thread.Sleep(100);
+            await Task.Delay(100);
             txt.SelectionStart = 0;
             文字選択();
         }
