@@ -35,19 +35,8 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
 
         private void txt_MouseUp(object sender, MouseEventArgs e)
         {
-            this.Text = txt.SelectedText;
+            this.Text = txt.SelectedText;//選択文字が次の歌詞入力の対象になる
             if (this.Text == "") { this.Text = "MuseScoreにおける歌詞入力補助ツール"; }
-        }//選択文字が次の歌詞入力の対象になる
-
-        private void lbl_ctrlL_MouseDown(object sender, MouseEventArgs e) { SendKeys.Send("^l"); }//音符を選択してCtrl+Lで歌詞入力
-        private void lbl_sp_Click(object sender, EventArgs e) { }//歌詞入力中にspaceで次の音符に移動
-
-        private void lbl反映_Click(object sender, EventArgs e)
-        {
-            txt.Text = Clipboard.GetText();
-            Thread.Sleep(100);
-            txt.SelectionStart = 0;
-            文字選択();
         }
 
         //フォーカスを持たないフォーム
@@ -122,12 +111,22 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
         private void lbl_sp_MouseDown(object sender, MouseEventArgs e)
         {
             lbl_sp.BackColor = System.Drawing.Color.Yellow;
-            SendKeys.Send(" ");
+            SendKeys.Send(" ");//歌詞入力中にspaceで次の音符に移動
         }
 
         private void lbl_sp_MouseUp(object sender, MouseEventArgs e)
         {
             lbl_sp.BackColor = System.Drawing.SystemColors.Control;
+        }
+
+                private void lbl_ctrlL_MouseDown(object sender, MouseEventArgs e) { SendKeys.Send("^l"); }//音符を選択してCtrl+Lで歌詞入力
+
+        private void lbl反映_Click(object sender, EventArgs e)
+        {
+            txt.Text = Clipboard.GetText();
+            Thread.Sleep(100);
+            txt.SelectionStart = 0;
+            文字選択();
         }
     }
 }
