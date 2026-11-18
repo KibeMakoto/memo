@@ -119,7 +119,7 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
             lbl_sp.BackColor = System.Drawing.SystemColors.Control;
         }
 
-                private void lbl_ctrlL_MouseDown(object sender, MouseEventArgs e) { SendKeys.Send("^l"); }//音符を選択してCtrl+Lで歌詞入力
+        private void lbl_ctrlL_MouseDown(object sender, MouseEventArgs e) { SendKeys.Send("^l"); }//音符を選択してCtrl+Lで歌詞入力
 
         private void lbl反映_Click(object sender, EventArgs e)
         {
