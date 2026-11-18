@@ -97,6 +97,7 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
             string sendText = this.Text;
             if (!string.IsNullOrEmpty(sendText))
             {
+                Clipboard.SetText(sendText);
                 await Task.Delay(200);
                 SendKeys.SendWait("^v");
             }
