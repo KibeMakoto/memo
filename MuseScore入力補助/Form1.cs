@@ -32,28 +32,7 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
             else if (cmb.Text == "-") { 次の区切り('-'); }
             this.Text = txt.SelectedText.Trim();
         }
-
-        private void txt_MouseUp(object sender, MouseEventArgs e)
-        {
-            this.Text = txt.SelectedText;//選択文字が次の歌詞入力の対象になる
-            if (this.Text == "") { this.Text = "MuseScoreにおける歌詞入力補助ツール"; }
-        }
-
-        //フォーカスを持たないフォーム
-        private const int WS_EX_NOACTIVATE = 0x8000000;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams p = base.CreateParams;
-                if (!base.DesignMode)
-                {
-                    p.ExStyle = p.ExStyle | (WS_EX_NOACTIVATE);
-                }
-                return p;
-            }
-        }
-
+        
         void 次の一文字()
         {
             if (txt.SelectionLength == 1)
@@ -90,6 +69,12 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
             txt.SelectionStart = s;
             txt.SelectionLength = e - s;
         }
+        
+        private void txt_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.Text = txt.SelectedText;//選択文字が次の歌詞入力の対象になる
+            //if (this.Text == "") { this.Text = "MuseScoreにおける歌詞入力補助ツール"; }
+        }
 
         private async void lbl_next_MouseDown(object sender, MouseEventArgs e)
         {
@@ -120,6 +105,24 @@ way-yim-ta-ḥēm-kā-ʾō-hel-lā-shā-ḇeṯ.
             lbl_sp.BackColor = System.Drawing.SystemColors.Control;
         }
 
+
+        //自身がフォーカスを持たないフォームにすることで他所への入力アプリになります
+        private const int WS_EX_NOACTIVATE = 0x8000000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams p = base.CreateParams;
+                if (!base.DesignMode)
+                {
+                    p.ExStyle = p.ExStyle | (WS_EX_NOACTIVATE);
+                }
+                return p;
+            }
+        }
+
+
+        // 追加すると便利な機能
         private void lbl_ctrlL_MouseDown(object sender, MouseEventArgs e) { SendKeys.Send("^l"); }//音符を選択してCtrl+Lで歌詞入力
 
         private async void lbl反映_Click(object sender, EventArgs e)
