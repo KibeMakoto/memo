@@ -9,7 +9,7 @@ using Tesseract;//https://github.com/tesseract-ocr/tessdata_best/tree/main
 
 namespace OCR
 {
-    public partial class FreeClip : Form
+    public partial class ReadLines : Form
     {
         string tessdata_folder = @"C:\something\tessdata";
 
@@ -26,7 +26,7 @@ namespace OCR
             return PageSegMode.Auto; ;
         }
 
-        public FreeClip(string[] args)
+        public ReadLines(string[] args)
         {
             InitializeComponent();
 
