@@ -9,10 +9,11 @@ namespace フレーム型フォーム
         public Frame_main(string[] args)
         {
             InitializeComponent();
-            posSize = this.Size;
-
+            
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            posSize = this.Size;
+
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.BackColor = Color.Red;
@@ -21,7 +22,7 @@ namespace フレーム型フォーム
             if (args.Length ==2 && int.TryParse(args[0],out a[0]) && int.TryParse(args[1], out a[1])) { setRectangle(a[0], a[1]); ssa1 = true; }
             if (args.Length ==4 && int.TryParse(args[0], out a[0]) && int.TryParse(args[1], out a[1]) && int.TryParse(args[2], out a[2]) && int.TryParse(args[3], out a[3]))
              { this.Location = new Point(a[0], a[1]); ssa2 = true; setRectangle(a[2], a[3]); ssa1 = true; }
-            if (ssa1 == false) { setRectangle(800, 480); }
+            if (ssa1 == false) { setRectangle(this.Width, this.Height); }
             if (ssa2 == false) { this.Location = new Point(Cursor.Position.X - this.Width / 2, Cursor.Position.Y); }
             this.Opacity = 0.5;
             this.TopMost = true;
@@ -163,7 +164,7 @@ namespace フレーム型フォーム
 
 
         // Cursorやtipの表示 について
-        Point tipPosition() { return new Point(Cursor.Position.X- this.Location.X, Cursor.Position.Y- this.Location.Y); }
+        Point tipPosition() { return this.PointToClient(Cursor.Position); }
         string tipString() { return (this.Location.ToString() + ", " + this.Size.ToString()).Replace("{","").Replace("}", ""); }
         void cursorType(MouseEventArgs e) {
             if (e.Y < grip && this.Cursor != System.Windows.Forms.Cursors.Hand) { this.Cursor = System.Windows.Forms.Cursors.Hand; }
@@ -192,8 +193,6 @@ namespace フレーム型フォーム
         public void camera() {
             this.Opacity = 0;
 
-            Screen screen = Screen.PrimaryScreen;
-            System.Drawing.Rectangle rc = screen.Bounds;
             Bitmap bmp = new Bitmap(this.Size.Width, this.Size.Height);
             using (Graphics g = Graphics.FromImage(bmp))
             { g.CopyFromScreen(this.Location.X, this.Location.Y, 0, 0, bmp.Size); }
