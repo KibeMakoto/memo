@@ -79,8 +79,8 @@ namespace フレーム型フォーム
         enum ResizeMode
         {
             //modeはenumにした方が読み易いだろうか
+            None,
             Move,
-            Top,
             Bottom,
             Right,
             Left,
