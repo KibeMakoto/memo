@@ -17,6 +17,7 @@ namespace フレーム型フォーム
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             posSize = this.Size;
 
+            // ここはSystem.Diagnostics.Process.Start(@"フレーム型フォーム.exe","200 100 256 256");などとして使うことを想定して書いてます
             bool ssa1 = false; bool ssa2 = false;
             int[] a = new int[4]; 
             if (args.Length == 2 && int.TryParse(args[0], out a[0]) && int.TryParse(args[1], out a[1])) { setSize(a[0], a[1]); ssa1 = true; }
@@ -24,12 +25,12 @@ namespace フレーム型フォーム
             { this.Location = new Point(a[0], a[1]); ssa2 = true; setSize(a[2], a[3]); ssa1 = true; }
             if (ssa1 == false) { posSize = Size.Empty; setSize(this.Width, this.Height); }
             if (ssa2 == false) { this.Location = new Point(Cursor.Position.X - this.Width / 2, Cursor.Position.Y); }
-            this.Opacity = 0.5;
-            this.TopMost = true;
 
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form_MouseUp);
+            this.Opacity = 0.5;
+            this.TopMost = true;
             tip.SetToolTip(this, "ドラッグ/右クリックしてください");
             fm.Owner = this;
         }
@@ -79,7 +80,7 @@ namespace フレーム型フォーム
         int mode;
         enum ResizeMode
         {
-            //modeはenumにした方が読み易いだろうか
+            //modeはenumにした方が読み易いだろうか（書き方に迷いがあります）
             None,
             Move,
             Bottom,
