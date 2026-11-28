@@ -211,7 +211,7 @@ namespace フレーム型フォーム
 
         public void clipRect() { Clipboard.SetText(this.Location.X.ToString() + "," + this.Location.Y.ToString() + "," + this.Size.Width.ToString() + "," + this.Size.Height.ToString()); }
 
-        public void setPosition(int x, int y, int w, int h)
+        public void setRectangle(int x, int y, int w, int h)
         {
             this.Location = new Point(x, y);
             this.Size = new Size(w, h);
@@ -220,7 +220,7 @@ namespace フレーム型フォーム
 
 
         // 改善可能性のあるいくつかの案
-        //void setPositionはprivateにして、public Rectangleを設定して操作した方が扱い易いかもしれない
+        //void setRectangleの部分は、public Rectangleを設定して操作した方が扱い易いかもしれない
         /*
         public Rectangle Rectangle
         {
@@ -326,7 +326,7 @@ namespace フレーム型フォーム
             {
                 if (int.TryParse(v[i], out w[i]) == false) { return; }
             }
-            ((Frame_main)(this.Owner)).setPosition(w[0], w[1], w[2], w[3]);
+            ((Frame_main)(this.Owner)).setRectangle(w[0], w[1], w[2], w[3]);
             rectBox.Text = "";
         }
     }
