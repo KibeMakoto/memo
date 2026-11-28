@@ -9,14 +9,13 @@ namespace フレーム型フォーム
         public Frame_main(string[] args)
         {
             InitializeComponent();
-            
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            posSize = this.Size;
 
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.BackColor = Color.Red;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            posSize = this.Size;
 
             int[] a=new int[4]; bool ssa1=false; bool ssa2 = false;
             if (args.Length ==2 && int.TryParse(args[0],out a[0]) && int.TryParse(args[1], out a[1])) { setRectangle(a[0], a[1]); ssa1 = true; }
